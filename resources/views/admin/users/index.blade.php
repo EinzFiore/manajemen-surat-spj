@@ -1,7 +1,6 @@
 @extends('layouts.base')
 @section('page-title', 'Dashboard Users')
 @section('content')
-<div>
   <div class="col-sm-12 mb-2">
       <div class="row">
         <div class="col-xl-6 col-sm-12">
@@ -12,7 +11,6 @@
         </div>
       </div>
   </div>
-</div>
 @include('admin.users.create')
 <div class="col-sm-12">
     <div class="card">
@@ -42,8 +40,6 @@
       <!-- Order Column Ends-->
     </div>
   </div>
-</div>
-
   <!-- Order Column Ends-->
 @include('admin.role.create')
 @endsection

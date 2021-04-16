@@ -13,7 +13,6 @@
               <table class="order-column surat">
                 <thead>
                   <tr>
-                    <td></td>
                     <th>No. BKU</th>
                     <th>No. Bukti</th>
                     <th>Tahun Anggaran</th>
@@ -30,7 +29,6 @@
       <!-- Order Column Ends-->
     </div>
   </div>
-</div>
 @endsection
 
 @push('script.custom')

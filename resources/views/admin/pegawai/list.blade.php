@@ -28,7 +28,6 @@
       <!-- Order Column Ends-->
     </div>
   </div>
-</div>
 @endsection
 
 @push('script.custom')
