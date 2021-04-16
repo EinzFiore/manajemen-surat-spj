@@ -13,6 +13,7 @@
               <table class="order-column surat">
                 <thead>
                   <tr>
+                    <td></td>
                     <th>No. BKU</th>
                     <th>No. Bukti</th>
                     <th>Tahun Anggaran</th>
@@ -39,8 +40,17 @@ $(document).ready(function() {
   var dataTable = $('.surat').DataTable({
       processing: true,
       serverSide: true,
-      autoWidth: false,
+      autoWidth: true,
       pageLength: 5,
+      columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
       // scrollX: true,
       "order": [[ 0, "desc" ]],
       ajax: '{{ route('surat.get') }}',
