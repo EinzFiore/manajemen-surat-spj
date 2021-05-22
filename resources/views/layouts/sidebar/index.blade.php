@@ -17,10 +17,9 @@
               <p class="lan-2">Dashboards,widgets & layout.</p>
             </div>
           </li>
-          <li class="sidebar-list">
+          {{-- <li class="sidebar-list">
             <a class="sidebar-link" href="<?= route('admin.dashboard') ?>"><i data-feather="home"></i><span class="lan-3">Dashboard</span></a>
-          </li>
-          @can('manage-user')
+          </li> --}}
           <li class="sidebar-main-title">
             <div>
               <h6>Management User</h6>
@@ -30,7 +29,6 @@
             <li class="sidebar-list">
               <a class="sidebar-link active user-menu" href="{{route('admin.users.list')}}"><i data-feather="users"></i><span>Users</span></a>
           </li>
-          @endcan
           <li class="sidebar-main-title">
             <div>
               <h6>Surat</h6>
@@ -41,12 +39,16 @@
           </li>
           <li class="sidebar-main-title">
             <div>
-              <h6>Pegawai</h6>
-              <p>Manajemen Pegawai</p>
+              <h6>Pejabat dan Rekanan</h6>
+              <p>Manajemen Pejabat dan Rekanan<</p>
             </div>
           </li>
             <li class="sidebar-list">
-              <a class="sidebar-link active" href="{{route('admin.pegawai.list')}}"><i data-feather="users"></i><span>Data Pegawai</span></a>
+              <a class="sidebar-link active" href="{{route('admin.pegawai.list')}}"><i data-feather="users"></i><span>Data Pejabat</span></a>
+            </li>
+            <li class="sidebar-list">
+              <a class="sidebar-link active" href="{{route('admin.pegawai.list')}}"><i data-feather="users"></i><span>Data Rekanan</span></a>
+            </li>
           </li>
       </div>
       <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

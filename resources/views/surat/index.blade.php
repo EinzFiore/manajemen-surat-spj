@@ -3,6 +3,52 @@
 @section('content')
 @include('surat.create')
 <div class="col-sm-12">
+  <div class="card-body">
+    <label><strong>Filter Data Surat</strong></label>
+    <hr>
+    <div class="row mb-2">
+      <div class="col-sm-2">
+        <div class="rak">
+          <label>Waktu</label>
+          <div class="form-group">
+            <select name="waktu" class="form-control filter" id="waktu">
+              <option value="">Pilih Waktu</option>
+              <option value="Today">Hari ini</option>
+              <option value="Yesterday">Kemarin</option>
+              <option value="Last Week">Minggu Ini</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+          <label>Bulan</label>
+          <div class="form-group">
+            <select name="bulan" class="form-control filter" id="bulan">
+              <option value="">Pilih Bulan</option>
+              <option value="01">Januari</option>
+              <option value="02">Februari</option>
+              <option value="03">Maret</option>
+              <option value="04">April</option>
+              <option value="05">Mei</option>
+              <option value="06">Juni</option>
+              <option value="07">Juli</option>
+              <option value="08">Agustus</option>
+              <option value="09">September</option>
+              <option value="10">Oktober</option>
+              <option value="11">November</option>
+              <option value="12">Desember</option>
+            </select>
+          </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="Batch">
+          <label>Tahun Anggaran</label>
+          <div class="form-group">
+            <input type="number" name="tahun" class="form-control filter" placeholder="Input tahun" id="tahun">
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="card">
       <div class="card-header">
         <h5>Data Dokumen</h5>
@@ -16,7 +62,7 @@
                     <th>No. BKU</th>
                     <th>No. Bukti</th>
                     <th>Tahun Anggaran</th>
-                    <th>Created At</th>
+                    <th>Dibuat pada</th>
                     <th>Total Export</th>
                     <th>Action</th>
                   </tr>
@@ -33,9 +79,14 @@
 
 @push('script.custom')
 <script type="text/javascript">
+
+let waktu = $("#waktu").val();
+let month = $("#bulan").val();
+let year = $("#tahun").val();
+
 $(document).ready(function() {  
   // init datatable.
-  var dataTable = $('.surat').DataTable({
+  const surat = $('.surat').DataTable({
       processing: true,
       serverSide: true,
       autoWidth: true,
@@ -51,7 +102,19 @@ $(document).ready(function() {
         },
       // scrollX: true,
       "order": [[ 0, "desc" ]],
-      ajax: '{{ route('surat.get') }}',
+      ajax: {
+        url: '{{ route('surat.get') }}',
+        type: "post",
+        headers:{
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: function(d){
+          d.waktu = waktu;
+          d.month = month;
+          d.tahun = year;
+          return d
+        }
+      },
       columns: [
           {data: 'no_bku', name: 'id'},
           {data: 'no_bukti', name: 'no_bukti'},
@@ -60,6 +123,14 @@ $(document).ready(function() {
           {data: 'total_export', name: 'total_export'},
           {data: 'Actions', name: 'Actions',orderable:false,serachable:false,sClass:'text-center'},
       ]
+  });
+
+  $(".filter").on('change', function(){
+      waktu = $("#waktu").val();
+      month = $("#bulan").val();
+      year = $("#tahun").val();
+      surat.ajax.reload(null,false)
+    })
   });
 
   $('#addNewSurat').click(function(e) {
@@ -175,7 +246,7 @@ $(document).ready(function() {
     }
   });
 });
-});
+
 </script>
 
 <script>

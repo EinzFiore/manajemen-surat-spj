@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group">
                   <label class="col-form-label" for="message-text">Penyetuju</label>
-                  <input class="form-control pegawai @error('penyetuju') is-invalid @enderror"  type="text" id="penerima" name="nama_penyetuju" placeholder="Nama Penyetuju">
+                  <input class="form-control pegawai @error('penyetuju') is-invalid @enderror"  type="text" id="penyetuju" name="nama_penyetuju" placeholder="Nama Penyetuju">
                   <input class="form-control idPegawai" type="hidden" id="idPenyetuju" name="id_penyetuju">
                 </div>
                 <div class="form-group">

@@ -52,7 +52,7 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('surat')->group(function () {
     Route::get('list', 'Surat\SuratController@index')->name('surat.list');
-    Route::get('get', 'Surat\SuratController@get')->name('surat.get');
+    Route::post('get', 'Surat\SuratController@get')->name('surat.get');
     Route::post('add', 'Surat\SuratController@store')->name('surat.add');
     Route::get('export/{id}', 'Surat\SuratController@export')->name('surat.export');
     Route::get('show/{no}', 'Surat\SuratController@show')->name('surat.show');

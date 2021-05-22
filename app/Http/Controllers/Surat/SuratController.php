@@ -22,11 +22,29 @@ class SuratController extends Controller
         return view('surat.index');
     }
 
-    public function get()
+    public function get(Request $request)
     {
         $data = DB::table('surat')
             ->join('export_surat', 'surat.no_bku', 'export_surat.no_bku')
             ->select('surat.*', 'export_surat.nama_file', 'export_surat.total_export', 'export_surat.export_by');
+        if ($request->month != "") {
+            $data->whereMonth('surat.created_at', $request->month);
+        }
+        if ($request->tahun != "") {
+            $data->whereYear('tahun_anggaran', $request->tahun);
+        }
+        if ($request->waktu != "") {
+            if ($request->waktu == "Today") {
+                $data->whereDate('surat.created_at', Carbon::today());
+            }
+            if ($request->waktu == "Yesterday") {
+                $yesterday = date("Y-m-d", strtotime('-1 days'));
+                $data->whereDate('surat.created_at', $yesterday);
+            }
+            if ($request->waktu == "Last Week") {
+                $data->whereBetween('surat.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+            }
+        }
         return DataTables::of($data)
             ->editColumn('created_at', function ($request) {
                 return Carbon::make($request->created_at)->format('Y-m-d H:i:s');

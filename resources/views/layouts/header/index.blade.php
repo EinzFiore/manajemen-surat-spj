@@ -21,11 +21,7 @@
       <div class="nav-right col-8 pull-right right-header p-0">
         <ul class="nav-menus">
           {{-- notif --}}
-          @include('layouts.header.partials.notif')
-          <li>
-            <div class="mode"><i class="fa fa-moon-o"></i></div>
-          </li>
-          <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
+          {{-- @include('layouts.header.partials.notif') --}}
           <li class="profile-nav onhover-dropdown p-0 mr-0">
             <div class="media profile-media"><img class="b-r-10" src="assets/images/dashboard/profile.jpg" alt="">
               <div class="media-body"><span><?= auth()->user()->name ?></span>
@@ -43,6 +39,7 @@
               </li>
             </ul>
           </li>
+          <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
         </ul>
       </div>
       <script class="result-template" type="text/x-handlebars-template">
