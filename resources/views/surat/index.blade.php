@@ -51,10 +51,9 @@
     </div>
     <div class="card">
       <div class="card-header">
-        <h5>Data Dokumen</h5>
           <div class="row mt-4">
             <div class="col-sm-3">
-            <label>Pilih Jenis Surat Yang Ditampilkan</label>
+            <label>Pilih Jenis Surat Yang Ingin Ditampilkan</label>
               <select name="jenis_surat" id="jenis_surat" class="form-control">
                 <option value="">-- Silahkan Pilih --</option>
                 <option value="BLUD">BLUD</option>
@@ -66,6 +65,7 @@
       <!-- Order Column styles-->
           <div class="card-body">
             <div class="table-responsive table-blud">
+              <h4>Data Surat BLUD</h4>
               <table class="order-column surat">
                 <thead>
                   <tr>
@@ -83,9 +83,13 @@
             </div>
 
             <div class="table-responsive table-bok">
+              <h4>Data Surat BOK</h4>
               <table class="order-column bok">
                 <thead>
                   <tr>
+                    <th>Keterangan</th>
+                    <th>Kode Rekening</th>
+                    <th>Penerima</th>
                     <th>Tahun Anggaran</th>
                     <th>Dibuat pada</th>
                     <th>Total Export</th>
@@ -108,10 +112,11 @@
 let waktu = $("#waktu").val();
 let month = $("#bulan").val();
 let year = $("#tahun").val();
+let jenis_surat = $('#jenis_surat').val();
 
 $(document).ready(function() {  
-  $('.table-blud').hide();
-  $('.table-bok').hide();
+  $('.table-blud').show();
+  $('.table-bok').show();
   $('#jenis_surat').on('change', function() {
     if(this.value == "BLUD"){
       $('.table-bok').hide();
@@ -181,7 +186,7 @@ $(document).ready(function() {
       // scrollX: true,
       "order": [[ 0, "desc" ]],
       ajax: {
-        url: '{{ route('surat.get') }}',
+        url: '{{ route('surat.get.bok') }}',
         type: "post",
         headers:{
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -194,6 +199,9 @@ $(document).ready(function() {
         }
       },
       columns: [
+          {data: 'keterangan', name: 'keterangan'},
+          {data: 'kode_rekening', name: 'kode_rekening'},
+          {data: 'penerima', name: 'penerima'},
           {data: 'tahun_anggaran', name: 'tahun_anggaran'},
           {data: 'created_at', name: 'created_at'},
           {data: 'total_export', name: 'total_export'},
@@ -246,36 +254,64 @@ $(document).ready(function() {
 
   $('body').on('click', '#editSurat', function () {
     var id = $(this).data('id');
-    $.get(`/surat/show/${id}`, function (data) {
-        $('#editModalSurat').modal('show');
-        $('#kode_rekeningEdit').val(data.kode_rekening);
-        $('#no_bkuEdit').val(data.no_bku);
-        $('#no_buktiEdit').val(data.no_bukti);
-        $('#ket_terimaEdit').val(data.ket_terima);
-        $('#uang_keluarEdit').val(data.uang_keluar);
-        $('#keteranganEdit').val(data.keterangan);
-        $('#penerimaEdit').val(data.penerima);
-        $('#alamat_penerimaEdit').val(data.alamat_penerima);
-        $('#penyetujuEdit').val(data.nama_penyetuju);
-        $('#id_penyetujuEdit').val(data.id_penyetuju);
-        $('#pengetahuiEdit').val(data.nama_pengetahu);
-        $('#idPengetahuEdit').val(data.id_pengetahu);
-        $('#pembayarEdit').val(data.nama_pembayar);
-        $('#idPembayarEdit').val(data.id_pembayar);
-    })
+    let jenis_surat = $('#jenis_surat').val();
+    if(jenis_surat == "BLUD"){
+      $('.blud').show();
+      $.get(`/surat/show/${id}`, function (data) {
+          $('#editModalSurat').modal('show');
+          $('#kode_rekeningEdit').val(data.kode_rekening);
+          $('#no_bkuEdit').val(data.no_bku);
+          $('#no_buktiEdit').val(data.no_bukti);
+          $('#ket_terimaEdit').val(data.ket_terima);
+          $('#uang_keluarEdit').val(data.uang_keluar);
+          $('#keteranganEdit').val(data.keterangan);
+          $('#penerimaEdit').val(data.penerima);
+          $('#alamat_penerimaEdit').val(data.alamat_penerima);
+          $('#penyetujuEdit').val(data.nama_penyetuju);
+          $('#id_penyetujuEdit').val(data.id_penyetuju);
+          $('#pengetahuiEdit').val(data.nama_pengetahu);
+          $('#idPengetahuEdit').val(data.id_pengetahu);
+          $('#pembayarEdit').val(data.nama_pembayar);
+          $('#idPembayarEdit').val(data.id_pembayar);
+      });
+    } else {
+      $('.blud').hide();
+      $.get(`/surat/bok/show/${id}`, function (data) {
+          $('#editModalSurat').modal('show');
+          $('#kode_rekeningEdit').val(data.kode_rekening);
+          $('#idBOK').val(data.id);
+          $('#ket_terimaEdit').val(data.ket_terima);
+          $('#uang_keluarEdit').val(data.uang_keluar);
+          $('#keteranganEdit').val(data.keterangan);
+          $('#penerimaEdit').val(data.penerima);
+          $('#alamat_penerimaEdit').val(data.alamat_penerima);
+          $('#penyetujuEdit').val(data.nama_penyetuju);
+          $('#id_penyetujuEdit').val(data.id_penyetuju);
+          $('#pengetahuiEdit').val(data.nama_pengetahu);
+          $('#idPengetahuEdit').val(data.id_pengetahu);
+          $('#pembayarEdit').val(data.nama_pembayar);
+          $('#idPembayarEdit').val(data.id_pembayar);
+        });
+      }
   });
 
     $('#updateSurat').click(function(e) {
-      var id = $('#no_bkuEdit').val();
-      console.log(id);
       e.preventDefault();
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
+      let jenis_surat = $('#jenis_surat').val();
+      if(jenis_surat == "BLUD"){
+        var id = $('#no_bkuEdit').val();
+        url = `/surat/update/${id}`;
+      } else {
+        var id = $('#idBOK').val();
+        url = `/surat/bok/update/${id}`;
+      }
       $.ajax({
-          url: `/surat/update/${id}`,
+          url: url,
           method: 'put',
           data: $('form#updateDataSurat').serialize(),
           success: function(result) {

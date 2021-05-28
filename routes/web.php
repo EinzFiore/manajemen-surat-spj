@@ -66,12 +66,10 @@ Route::prefix('surat')->group(function () {
     Route::get('export/{id}', 'Surat\SuratController@export')->name('surat.export');
     Route::get('show/{no}', 'Surat\SuratController@show')->name('surat.show');
     Route::put('update/{no}', 'Surat\SuratController@update')->name('surat.update');
-    Route::prefix('kop')->group(function () {
-        Route::get('list', 'Surat\KopController@index')->name('surat.kop.list');
-        Route::get('get', 'Surat\KopController@get')->name('surat.kop.get');
-        Route::post('add', 'Surat\KopController@store')->name('surat.kop.add');
-    });
-    Route::prefix('persetujuan')->group(function () {
-        Route::get('list', 'Surat\SuratController@ttdList')->name('surat.persetujuan.list');
+    Route::prefix('bok')->group(function () {
+        Route::post('get', 'Surat\SuratController@getBOK')->name('surat.get.bok');
+        Route::get('export/{id}', 'Surat\SuratController@exportBOK')->name('surat.export.bok');
+        Route::get('show/{no}', 'Surat\SuratController@showBOK')->name('surat.show.bok');
+        Route::put('update/{no}', 'Surat\SuratController@updateBOK')->name('surat.update.bok');
     });
 });

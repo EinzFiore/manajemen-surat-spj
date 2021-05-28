@@ -100,15 +100,16 @@
             </button>
         </div>
             <form id="updateDataSurat">
+              <input type="hidden" id="idBOK" name="id" readonly>
               <div class="form-group">
                 <label class="col-form-label" for="recipient-name">Kode Rekening</label>
                 <input class="form-control @error('kode_rekening') is-invalid @enderror" type="text" id="kode_rekeningEdit" name="kode_rekening" placeholder="Kode Rekening">
               </div>
-              <div class="form-group">
+              <div class="form-group blud">
                 <label class="col-form-label" for="recipient-name">No. BKU</label>
                 <input class="form-control @error('no_bku') is-invalid @enderror" type="number" id="no_bkuEdit" name="no_bku" placeholder="Nomor BKU" readonly>
               </div>
-              <div class="form-group">
+              <div class="form-group blud">
                 <label class="col-form-label" for="recipient-name">No. Bukti</label>
                 <input class="form-control @error('no_bukti') is-invalid @enderror" type="text" id="no_buktiEdit" name="no_bukti" placeholder="Nomor Bukti">
               </div>
