@@ -24,7 +24,7 @@
             <form id="createSurat">
               <div class="form-group">
                 <label class="col-form-label" for="recipient-name">Tipe Surat</label>
-                <select class="form-control" id="tipe_surat">
+                <select class="form-control" name="tipe_surat" id="tipe_surat">
                   <option value="BOK">BOK</option>
                   <option value="BLUD">BLUD</option>
                 </select>

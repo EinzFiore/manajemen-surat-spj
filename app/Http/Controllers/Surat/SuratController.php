@@ -6,6 +6,7 @@ use alhimik1986\PhpExcelTemplator\params\ExcelParam;
 use alhimik1986\PhpExcelTemplator\PhpExcelTemplator;
 use alhimik1986\PhpExcelTemplator\setters\CellSetterStringValue;
 use App\Http\Controllers\Controller;
+use App\Models\BOK;
 use App\Models\Dokumen;
 use App\Models\ExportSurat;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class SuratController extends Controller
             ->make(true);
     }
 
-    public function store(Request $request, Dokumen $surat)
+    public function store(Request $request)
     {
         if ($request->no_bku) {
             $validator = Validator::make($request->all(), [
@@ -91,20 +92,36 @@ class SuratController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $surat->create([
-            'no_bku' => $request->no_bku,
-            'ket_terima' => $request->ket_terima,
-            'kode_rekening' => $request->kode_rekening,
-            'no_bukti' => $request->no_bukti,
-            'uang_keluar' => $request->uang_keluar,
-            'keterangan' => $request->keterangan,
-            'penerima' => $request->penerima,
-            'tahun_anggaran' => date('Y'),
-            'alamat_penerima' => $request->alamat_penerima,
-            'id_penyetuju' => $request->id_penyetuju,
-            'id_pengetahu' => $request->id_pengetahu,
-            'id_pembayar' => $request->id_pembayar,
-        ]);
+        if ($request->tipe_surat == "BLUD") {
+            Dokumen::create([
+                'no_bku' => $request->no_bku,
+                'ket_terima' => $request->ket_terima,
+                'kode_rekening' => $request->kode_rekening,
+                'no_bukti' => $request->no_bukti,
+                'uang_keluar' => $request->uang_keluar,
+                'keterangan' => $request->keterangan,
+                'penerima' => $request->penerima,
+                'tahun_anggaran' => date('Y'),
+                'alamat_penerima' => $request->alamat_penerima,
+                'id_penyetuju' => $request->id_penyetuju,
+                'id_pengetahu' => $request->id_pengetahu,
+                'id_pembayar' => $request->id_pembayar,
+            ]);
+        } else {
+            BOK::create([
+                'no_bku' => $request->no_bku,
+                'ket_terima' => $request->ket_terima,
+                'kode_rekening' => $request->kode_rekening,
+                'uang_keluar' => $request->uang_keluar,
+                'keterangan' => $request->keterangan,
+                'penerima' => $request->penerima,
+                'tahun_anggaran' => date('Y'),
+                'alamat_penerima' => $request->alamat_penerima,
+                'id_penyetuju' => $request->id_penyetuju,
+                'id_pengetahu' => $request->id_pengetahu,
+                'id_pembayar' => $request->id_pembayar,
+            ]);
+        }
         return response()->json(['success' => 'Berhasil menambahkan Surat!']);
     }
 

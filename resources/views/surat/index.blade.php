@@ -52,15 +52,40 @@
     <div class="card">
       <div class="card-header">
         <h5>Data Dokumen</h5>
+          <div class="row mt-4">
+            <div class="col-sm-3">
+            <label>Pilih Jenis Surat Yang Ditampilkan</label>
+              <select name="jenis_surat" id="jenis_surat" class="form-control">
+                <option value="">-- Silahkan Pilih --</option>
+                <option value="BLUD">BLUD</option>
+                <option value="BOK">BOK</option>
+              </select>
+            </div>
+          </div>
       </div>
       <!-- Order Column styles-->
           <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive table-blud">
               <table class="order-column surat">
                 <thead>
                   <tr>
                     <th>No. BKU</th>
                     <th>No. Bukti</th>
+                    <th>Tahun Anggaran</th>
+                    <th>Dibuat pada</th>
+                    <th>Total Export</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-responsive table-bok">
+              <table class="order-column bok">
+                <thead>
+                  <tr>
                     <th>Tahun Anggaran</th>
                     <th>Dibuat pada</th>
                     <th>Total Export</th>
@@ -85,8 +110,61 @@ let month = $("#bulan").val();
 let year = $("#tahun").val();
 
 $(document).ready(function() {  
-  // init datatable.
+  $('.table-blud').hide();
+  $('.table-bok').hide();
+  $('#jenis_surat').on('change', function() {
+    if(this.value == "BLUD"){
+      $('.table-bok').hide();
+      $('.table-blud').show();
+    } else if(this.value == "BOK") {
+      $('.table-blud').hide();
+      $('.table-bok').show();
+    } else {
+      $('.table-blud').hide();
+      $('.table-bok').hide();
+    }
+  });
+
   const surat = $('.surat').DataTable({
+        processing: true,
+        serverSide: true,
+        autoWidth: true,
+        pageLength: 5,
+        columnDefs: [ {
+              orderable: false,
+              className: 'select-checkbox',
+              targets:   0
+          } ],
+          select: {
+              style:    'os',
+              selector: 'td:first-child'
+          },
+        // scrollX: true,
+        "order": [[ 0, "desc" ]],
+        ajax: {
+          url: '{{ route('surat.get') }}',
+          type: "post",
+          headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data: function(d){
+            d.waktu = waktu;
+            d.month = month;
+            d.tahun = year;
+            return d
+          }
+        },
+        columns: [
+            {data: 'no_bku', name: 'id'},
+            {data: 'no_bukti', name: 'no_bukti'},
+            {data: 'tahun_anggaran', name: 'tahun_anggaran'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'total_export', name: 'total_export'},
+            {data: 'Actions', name: 'Actions',orderable:false,serachable:false,sClass:'text-center'},
+        ]
+    });
+  
+    const bok = $('.bok').DataTable({
       processing: true,
       serverSide: true,
       autoWidth: true,
@@ -116,14 +194,13 @@ $(document).ready(function() {
         }
       },
       columns: [
-          {data: 'no_bku', name: 'id'},
-          {data: 'no_bukti', name: 'no_bukti'},
           {data: 'tahun_anggaran', name: 'tahun_anggaran'},
           {data: 'created_at', name: 'created_at'},
           {data: 'total_export', name: 'total_export'},
           {data: 'Actions', name: 'Actions',orderable:false,serachable:false,sClass:'text-center'},
       ]
   });
+  
 
   $(".filter").on('change', function(){
       waktu = $("#waktu").val();
