@@ -47,7 +47,7 @@
               <a class="sidebar-link active" href="{{route('admin.pegawai.list')}}"><i data-feather="users"></i><span>Data Pejabat</span></a>
             </li>
             <li class="sidebar-list">
-              <a class="sidebar-link active" href="{{route('admin.pegawai.list')}}"><i data-feather="users"></i><span>Data Rekanan</span></a>
+              <a class="sidebar-link active" href="{{route('admin.rekanan.list')}}"><i data-feather="users"></i><span>Data Rekanan</span></a>
             </li>
           </li>
       </div>

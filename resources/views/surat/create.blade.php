@@ -23,14 +23,21 @@
         </div>
             <form id="createSurat">
               <div class="form-group">
+                <label class="col-form-label" for="recipient-name">Tipe Surat</label>
+                <select class="form-control" id="tipe_surat">
+                  <option value="BOK">BOK</option>
+                  <option value="BLUD">BLUD</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label class="col-form-label" for="recipient-name">Kode Rekening</label>
                 <input class="form-control @error('kode_rekening') is-invalid @enderror" type="text" id="kode_rekening" name="kode_rekening" placeholder="Kode Rekening">
               </div>
-              <div class="form-group">
+              <div class="form-group bku">
                 <label class="col-form-label" for="recipient-name">No. BKU</label>
                 <input class="form-control @error('no_bku') is-invalid @enderror" type="number" id="no_bku" name="no_bku" placeholder="Nomor BKU">
               </div>
-              <div class="form-group">
+              <div class="form-group bku">
                 <label class="col-form-label" for="recipient-name">No. Bukti</label>
                 <input class="form-control @error('no_bukti') is-invalid @enderror" type="text" id="no_bukti" name="no_bukti" placeholder="Nomor Bukti">
               </div>
@@ -48,11 +55,11 @@
                 </div>
                 <div class="form-group">
                   <label class="col-form-label" for="message-text">Penerima</label>
-                  <input class="form-control @error('penerima') is-invalid @enderror"  type="text" id="penerima" name="penerima" placeholder="Nama Penerima">
+                  <input class="form-control @error('penerima') is-invalid @enderror rekanan"  type="text" id="penerima" name="penerima" placeholder="Nama Penerima">
                 </div>
                 <div class="form-group">
                   <label class="col-form-label" for="message-text">Alamat Penerima</label>
-                  <textarea class="form-control @error('alamat_penerima') is-invalid @enderror"  type="text" id="alamat_penerima" name="alamat_penerima" placeholder="Alamat Penerima"></textarea>
+                  <textarea class="form-control @error('alamat_penerima') is-invalid @enderror"  type="text" id="alamat_penerima" name="alamat_penerima" placeholder="Alamat Penerima" readonly></textarea>
                 </div>
                 <div class="form-group">
                   <label class="col-form-label" for="message-text">Penyetuju</label>

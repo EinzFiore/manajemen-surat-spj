@@ -279,5 +279,40 @@ $(document).ready(function() {
           return false;
         }
       });
+
+      $( ".rekanan" ).autocomplete({
+        source: function( request, response ) {
+          // Fetch data
+          $.ajax({
+            url:"{{route('rekanan.cari')}}",
+            type: 'post',
+            dataType: "json",
+            data: {
+               _token: CSRF_TOKEN,
+               search: request.term
+            },
+            success: function( data ) {
+               response( data );
+            }
+          });
+        },
+        select: function (event, ui) {
+          const id = $('#idPenerima').val();
+          $(this).filter('.rekanan').val(ui.item.value);
+          $('#alamat_penerima').text(ui.item.alamat);
+          return false;
+        }
+      });
+</script>
+
+<script>
+  $('.bku').hide();
+  $('select#tipe_surat').on('change', function() {
+    if(this.value == "BLUD"){
+      $('.bku').show();
+    } else {
+      $('.bku').hide();
+    }
+});
 </script>
 @endpush

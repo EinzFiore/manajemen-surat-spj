@@ -25,7 +25,7 @@ class SuratController extends Controller
     public function get(Request $request)
     {
         $data = DB::table('surat')
-            ->join('export_surat', 'surat.no_bku', 'export_surat.no_bku')
+            ->leftJoin('export_surat', 'surat.no_bku', 'export_surat.no_bku')
             ->select('surat.*', 'export_surat.nama_file', 'export_surat.total_export', 'export_surat.export_by');
         if ($request->month != "") {
             $data->whereMonth('surat.created_at', $request->month);
@@ -59,19 +59,33 @@ class SuratController extends Controller
 
     public function store(Request $request, Dokumen $surat)
     {
-        $validator = Validator::make($request->all(), [
-            'no_bku' => 'required',
-            'ket_terima' => 'required',
-            'kode_rekening' => 'required',
-            'no_bukti' => 'required',
-            'uang_keluar' => 'required',
-            'keterangan' => 'required',
-            'penerima' => 'required',
-            'alamat_penerima' => 'required',
-            'id_penyetuju' => 'required',
-            'id_pengetahu' => 'required',
-            'id_pembayar' => 'required',
-        ]);
+        if ($request->no_bku) {
+            $validator = Validator::make($request->all(), [
+                'no_bku' => 'required',
+                'ket_terima' => 'required',
+                'kode_rekening' => 'required',
+                'no_bukti' => 'required',
+                'uang_keluar' => 'required',
+                'keterangan' => 'required',
+                'penerima' => 'required',
+                'alamat_penerima' => 'required',
+                'id_penyetuju' => 'required',
+                'id_pengetahu' => 'required',
+                'id_pembayar' => 'required',
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'ket_terima' => 'required',
+                'kode_rekening' => 'required',
+                'uang_keluar' => 'required',
+                'keterangan' => 'required',
+                'penerima' => 'required',
+                'alamat_penerima' => 'required',
+                'id_penyetuju' => 'required',
+                'id_pengetahu' => 'required',
+                'id_pembayar' => 'required',
+            ]);
+        }
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
@@ -85,6 +99,7 @@ class SuratController extends Controller
             'uang_keluar' => $request->uang_keluar,
             'keterangan' => $request->keterangan,
             'penerima' => $request->penerima,
+            'tahun_anggaran' => date('Y'),
             'alamat_penerima' => $request->alamat_penerima,
             'id_penyetuju' => $request->id_penyetuju,
             'id_pengetahu' => $request->id_pengetahu,

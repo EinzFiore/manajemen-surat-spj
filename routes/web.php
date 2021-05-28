@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -43,6 +43,15 @@ Route::prefix('admin')->group(function () {
         Route::get('show/{id}', 'Admin\PegawaiController@show')->name('admin.pegawai.show');
         Route::put('update/{id}', 'Admin\PegawaiController@update')->name('admin.pegawai.update');
         Route::get('delete/{id}', 'Admin\PegawaiController@destroy')->name('admin.pegawai.destroy');
+    });
+    Route::prefix('rekanan')->group(function () {
+        Route::get('list', 'Admin\RekananController@index')->name('admin.rekanan.list');
+        Route::get('get', 'Admin\RekananController@getRekanan')->name('admin.rekanan.get');
+        Route::post('store', 'Admin\RekananController@store')->name('admin.rekanan.add');
+        Route::post('cari', 'Admin\RekananController@cari')->name('rekanan.cari');
+        Route::get('show/{id}', 'Admin\RekananController@show')->name('admin.rekanan.show');
+        Route::put('update/{id}', 'Admin\RekananController@update')->name('admin.rekanan.update');
+        Route::get('delete/{id}', 'Admin\RekananController@destroy')->name('admin.rekanan.destroy');
     });
     Route::prefix('dashboard')->group(function () {
         Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
