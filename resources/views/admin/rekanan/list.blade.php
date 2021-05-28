@@ -15,6 +15,7 @@
                   <tr>
                     <th>No.</th>
                     <th>Nama</th>
+                    <th>Perusahaan/Jabatan</th>
                     <th>Alamat</th>
                     <th>Action</th>
                   </tr>
@@ -44,6 +45,7 @@
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'nama', name: 'name'},
+                {data: 'perusahaan', name: 'perusahaan'},
                 {data: 'alamat', name: 'alamat'},
                 {data: 'Actions', name: 'Actions',orderable:false,serachable:false,sClass:'text-center'},
             ]
@@ -89,6 +91,7 @@
           $('#editModalRekanan').modal('show');
           $('#idRekanan').val(data.id);
           $('#namaRekanan').val(data.nama);
+          $('#perusahaanRekanan').val(data.perusahaan);
           $('#alamatRekanan').val(data.alamat);
       })
     });

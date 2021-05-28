@@ -115,8 +115,8 @@ let year = $("#tahun").val();
 let jenis_surat = $('#jenis_surat').val();
 
 $(document).ready(function() {  
-  $('.table-blud').show();
-  $('.table-bok').show();
+  $('.table-blud').hide();
+  $('.table-bok').hide();
   $('#jenis_surat').on('change', function() {
     if(this.value == "BLUD"){
       $('.table-bok').hide();

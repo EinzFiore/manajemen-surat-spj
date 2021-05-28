@@ -11,6 +11,7 @@ class Rekanan extends Model
     protected $table = "rekanan";
     protected $fillable = [
         'nama',
+        'perusahaan',
         'alamat',
     ];
 }

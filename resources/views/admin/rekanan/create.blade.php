@@ -28,8 +28,12 @@
                   <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="nama" placeholder="Nama Rekanan">
                 </div>
                 <div class="form-group">
+                  <label class="col-form-label" for="recipient-name">Perusahaan</label>
+                  <input class="form-control @error('perusahaan') is-invalid @enderror" type="text" id="perusahaan" name="perusahaan" placeholder="Nama Perusahaan">
+                </div>
+                <div class="form-group">
                   <label class="col-form-label" for="recipient-name">Alamat</label>
-                  <textarea class="form-control @error('username') is-invalid @enderror" type="text" id="jabatan" name="alamat" placeholder="Alamat"></textarea>
+                  <textarea class="form-control @error('alamat') is-invalid @enderror" type="text" id="alamat" name="alamat" placeholder="Alamat"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -59,6 +63,10 @@
               <label class="col-form-label" for="recipient-name">Nama</label>
               <input class="form-control @error('name') is-invalid @enderror" type="text" id="namaRekanan" name="nama" placeholder="Nama Rekanan">
               <input class="form-control" type="hidden" id="idRekanan">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label" for="recipient-name">Perusahaan</label>
+              <input class="form-control @error('perusahaan') is-invalid @enderror" type="text" id="perusahaanRekanan" name="perusahaan" placeholder="Nama Perusahaan">
             </div>
             <div class="form-group">
               <label class="col-form-label" for="recipient-name">Alamat</label>

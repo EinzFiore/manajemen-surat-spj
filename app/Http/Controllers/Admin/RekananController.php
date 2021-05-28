@@ -31,6 +31,7 @@ class RekananController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'perusahaan' => 'required',
             'alamat' => 'required',
         ]);
 
